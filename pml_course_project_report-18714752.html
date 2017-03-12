@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 4.3.7.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		p { margin-bottom: 0.1in; line-height: 120% }
+		a:link { so-language: zxx }
+	</style>
+</head>
+<body lang="en-US" dir="ltr">
+<p align="left" style="margin-bottom: 0in; letter-spacing: normal; line-height: 0.17in">
+<br/>
+
+</p>
+<p align="left" style="margin-bottom: 0.14in; letter-spacing: normal; line-height: 0.17in">
+<br/>
+<br/>
+
+</p>
+<p align="left" style="margin-bottom: 0.14in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><b><span style="background: #ffffff">Overview:</span></b></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0.14in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">In
+this project, I analyzed how well the people do a particular activity
+based on the dataset from </span></span></font></font></font><a href="http://groupware.les.inf.puc-rio.br/har"><font color="#0000ff"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><u><span style="background: #ffffff">http://groupware.les.inf.puc-rio.br/har</span></u></span></font></font></font></a><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">
+. The training data is from accelerometers on the belt, forearm, arm,
+and dumbell of 6 participants. There are 19622 samples with 160
+features\measurements in the dataset. These samples belong to 5
+diferent classes. Machine learning models are built to predict the
+quality of an activity which is represented in 5 classes(A,B,C,D,E). 
+Then I use these models to predict the classes of 20 out-of-sample
+observations.</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0.14in; letter-spacing: normal; line-height: 0.17in">
+<br/>
+<br/>
+
+</p>
+<p align="left" style="margin-bottom: 0.14in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><b><span style="background: #ffffff">Method:</span></b></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0.14in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">	After
+a brief exploration on the dataset, some columns that are entirely
+empty or NA are eliminated from the training set. The domain
+knowledge that we obtained from the authors of the study allowed us
+to dismiss features like </span></span></font></font></font><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><i><span style="background: #ffffff">timestamp</span></i></span></font></font></font><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">
+and </span></span></font></font></font><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><i><span style="background: #ffffff">username</span></i></span></font></font></font><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">,
+as this would help our models to concentrate on more relevant
+features.  </span></span></font></font></font>
+</p>
+<p align="left" style="margin-bottom: 0.14in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">	A
+total of 4 algorithms from two different family of machine learning
+approaches were used. Basic decision tree (rpart), boosted tee (gbm)
+and random forest (rf) are used because of ease of interpretation of
+the models and high level of accuracy in the face of complex data,
+respectively. Linear discriminant analysis(lda) is used because it is
+known to work well in general when the measurements made on
+independent variables for each observation are continuous quantities.
+Our data is mostly comprised of continuous variables.</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0.14in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">	Data
+is partitioned into %80 trainingset and %20 test set. Then the
+training set is k-folded for cross validation accross 4 algorithms we
+use. After training, each model's performance is  evaluated against
+the test set.</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0.14in; letter-spacing: normal; line-height: 0.17in">
+<br/>
+<br/>
+
+</p>
+<p align="left" style="margin-bottom: 0.14in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><b><span style="background: #ffffff">Result:</span></b></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0.14in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">The
+random forest model showed the best predictive power even though it
+was computationaly more costly to train. The table below sumarizes
+these results:</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">			lda		rpart		gbm		rf</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">accuracy		0.6962		0.4881		0.9651		0.9962</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">time
+to train(sec)	6		17		597		1725</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; letter-spacing: normal; line-height: 0.17in">
+<br/>
+
+</p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">The
+rf model made these predictions for 20 samples in pml-testing.csv:</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">&gt;
+predict(model_rf, testData)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><span style="letter-spacing: normal"><span style="background: #ffffff">
+<font face="Calibri, serif"><font size="2" style="font-size: 11pt">[1]
+B A B A A E D B A A B C B A E E A B B B</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">Levels:
+A B C D E</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; letter-spacing: normal; line-height: 0.17in">
+<br/>
+
+</p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><b><span style="background: #ffffff">R
+Code Reference:</span></b></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+This R program learns from human body activity data and makes
+predictions as described in</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+</span></span></font></font></font><a href="https://www.coursera.org/learn/practical-machine-learning/supplement/PvInj/course-project-instructions-read-first"><font color="#0000ff"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><u><span style="background: #ffffff">https://www.coursera.org/learn/practical-machine-learning/supplement/PvInj/course-project-instructions-read-first</span></u></span></font></font></font></a></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">library(caret);
+library(rpart); library(gbm) ; library(randomForest)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+Read, explore and clean data</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">training
+&lt;-
+read.csv(&quot;C:\\Users\\Emin\\Documents\\data_scientist_toolkit_R\\course8_PracticalML\\pml-training.csv&quot;,
+na.strings = c(&quot;NA&quot;, &quot;&quot;))</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">testing
+&lt;-
+read.csv(&quot;C:\\Users\\Emin\\Documents\\data_scientist_toolkit_R\\course8_PracticalML\\pml-testing.csv&quot;,
+na.strings = c(&quot;NA&quot;, &quot;&quot;))</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">dim(testing)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">dim(training)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">summary(training)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">head(colnames(training),10)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">not_predictor
+&lt;-
+c(&quot;X&quot;,&quot;user_name&quot;,&quot;raw_timestamp_part_1&quot;,&quot;raw_timestamp_part_2&quot;,&quot;cvtd_timestamp&quot;,&quot;new_window&quot;,&quot;num_window&quot;)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">training[,not_predictor]
+&lt;- NA</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">testing[,not_predictor]
+&lt;- NA</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">training
+&lt;- training[, colSums(is.na(training)) == 0]</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">testing
+&lt;- testing[, colSums(is.na(testing)) == 0]</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">dim(training)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">dim(testing)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+Partition data as training  and validation sets</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">set.seed(71823)
+</span></span></font></font></font>
+</p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">partitionD
+&lt;- createDataPartition(training$classe, p = 0.8, list = FALSE)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">train
+&lt;- training[partitionD, ]</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">valid
+&lt;- training[-partitionD, ]</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">control
+&lt;- trainControl(method = &quot;cv&quot;, number = 5)  # Use 5-fold
+cross validation</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">Sys.time()</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+Basic Decision Tree </span></span></font></font></font>
+</p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">model_rpart
+&lt;- train(classe ~ ., data = train, method = &quot;rpart&quot;,
+trControl = control)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">print(model_rpart)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">predict_rpart
+&lt;- predict(model_rpart, valid)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">confusionMatrix(valid$classe,
+predict_rpart)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">Sys.time()</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+Linear Discriminant Analysis model</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">model_lda
+&lt;- train(classe ~ ., data = train, method = &quot;lda&quot;,
+trControl = control)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">print(model_rlda)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">print(model_lda)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">predict_lda
+&lt;- predict(model_lda, valid)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">confusionMatrix(valid$classe,
+predict_lda)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">Sys.time()</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+Boosted Tree model</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">model_gbm
+&lt;- train(classe ~ ., data = train, method = &quot;gbm&quot;,
+trControl = control)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">print(model_gbm)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">predict_gbm
+&lt;- predict(model_gbm, valid)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">confusionMatrix(valid$classe,
+predict_gbm)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">predict(model_gbm,
+testData)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">Sys.time()</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+Random Forest model</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">model_rf
+&lt;- train(classe ~ ., data = train, method = &quot;rf&quot;,
+trControl = control)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">print(model_rf,
+digits = 4)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">print(model_rf)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">predict_rf
+&lt;- predict(model_rf, valid)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">confusionMatrix(valid$classe,
+predict_rf)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">#
+save.image(&quot;C:\\Users\\Emin\\Documents\\PML1&quot;)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">predict(model_rf,
+testData)</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span style="letter-spacing: normal"><span style="background: #ffffff">Sys.time()</span></span></font></font></font></p>
+<p align="left" style="margin-bottom: 0in; letter-spacing: normal; line-height: 0.17in">
+<br/>
+
+</p>
+<p align="left" style="margin-bottom: 0in; line-height: 0.17in"><font color="#00000a"><span style="letter-spacing: normal"><span style="background: #ffffff">
+ </span></span></font>
+</p>
+</body>
+</html>
